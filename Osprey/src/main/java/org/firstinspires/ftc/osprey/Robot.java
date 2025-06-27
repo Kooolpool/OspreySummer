@@ -94,7 +94,8 @@ public class Robot implements Loggable {
         if (VISION_ENABLED) visionSubsystem = new VisionSubsystem(hardware.camera);
 
         if (CAP_ENABLED) capSubsystem = new CapSubsystem(
-            hardware.capArmServos,
+            hardware.capLeftArmServo,
+            hardware.capRightArmServo,
             hardware.capClawServo,
             hardware.capTurretServo
         );

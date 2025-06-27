@@ -30,20 +30,27 @@ public class CapSubsystem implements Subsystem, Supplier<String> {
         );
     }
 
-    public Servo armServo;
+    public Servo armLServo;
+    public Servo armRServo;
     public Servo clawServo;
 
     public Servo turretServo;
 
-    public ServoProfiler armProfiler;
+    public ServoProfiler armProfilerL;
+    public ServoProfiler armProfilerR;
     public ServoProfiler turretProfiler;
 
-    public CapSubsystem(Servo arm, Servo claw, Servo turret) {
+    public CapSubsystem(Servo armL, Servo armR, Servo claw, Servo turret) {
         CommandScheduler.register(this);
-        armServo = arm;
+        armLServo = armL;
+        armRServo = armR;
         clawServo = claw;
         turretServo = turret;
-        armProfiler = new ServoProfiler(armServo)
+        armProfilerL = new ServoProfiler(armLServo)
+            .setServoRange(0.4)
+            .setConstraints(ARM_CONSTRAINTS)
+            .setTargetPosition(ARM_INIT);
+        armProfilerR = new ServoProfiler(armRServo)
             .setServoRange(0.4)
             .setConstraints(ARM_CONSTRAINTS)
             .setTargetPosition(ARM_INIT);
@@ -61,13 +68,15 @@ public class CapSubsystem implements Subsystem, Supplier<String> {
     }
 
     public void up() {
-        armProfiler.setTargetPosition(ARM_UP);
+        armProfilerL.setTargetPosition(ARM_UP);
+        armProfilerR.setTargetPosition(ARM_UP);
         turretProfiler.setTargetPosition(TURRET_CARRY);
         clawServo.setPosition(CLAW_CLOSE);
     }
 
     public void raise() {
-        armProfiler.setTargetPosition(ARM_CAP);
+        armProfilerL.setTargetPosition(ARM_CAP);
+        armProfilerR.setTargetPosition(ARM_CAP);
     }
 
     public void raise2() {
@@ -75,12 +84,14 @@ public class CapSubsystem implements Subsystem, Supplier<String> {
     }
 
     public void down() {
-        armProfiler.setTargetPosition(ARM_DOWN);
+        armProfilerL.setTargetPosition(ARM_DOWN);
+        armProfilerR.setTargetPosition(ARM_DOWN);
         turretProfiler.setTargetPosition(TURRET_PICKUP);
     }
 
     public void translateArm(double translation) {
-        armProfiler.translateTargetPosition(translation);
+        armProfilerL.translateTargetPosition(translation);
+        armProfilerR.translateTargetPosition(translation);
     }
 
     public void translateTurret(double translation) {
@@ -90,7 +101,8 @@ public class CapSubsystem implements Subsystem, Supplier<String> {
     @Override
     public void periodic() {
         turretProfiler.update();
-        armProfiler.update();
+        armProfilerL.update();
+        armProfilerR.update();
     }
 
     @Override
@@ -98,8 +110,10 @@ public class CapSubsystem implements Subsystem, Supplier<String> {
         return (
             "CLAW: " +
             clawServo.getPosition() +
-            ", ARM: " +
-            armProfiler.getTargetPosition() +
+            ", ARML: " +
+            armProfilerL.getTargetPosition() +
+            ", ARMR: " +
+            armProfilerR.getTargetPosition() +
             ", TURRET: " +
             turretProfiler.getTargetPosition()
         );
