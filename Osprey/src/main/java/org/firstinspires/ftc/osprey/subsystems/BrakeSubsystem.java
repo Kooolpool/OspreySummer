@@ -22,7 +22,7 @@ public class BrakeSubsystem implements Subsystem, Supplier<Boolean> {
 
     public void raise() {
         servo.setPosition(BrakeConstants.UP);
-        isBraking = false;
+        //        isBraking = false;
     }
 
     public void lower() {

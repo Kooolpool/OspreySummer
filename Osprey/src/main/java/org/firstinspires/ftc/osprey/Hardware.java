@@ -50,7 +50,10 @@ public class Hardware implements Loggable {
         public static String INTAKE = "intake";
         public static String INTAKE_COLOR = "irange";
 
-        public static String CAP = "cap";
+        public static String CAP_ARML = "caparml";
+        public static String CAP_ARMR = "caparmr";
+        public static String CAP_CLAW = "capclaw";
+        public static String CAP_TURRET = "capturr";
 
         public static String BRAKE = "brake";
     }
@@ -77,15 +80,12 @@ public class Hardware implements Loggable {
 
     public Motor<DcMotorEx> carouselMotor;
 
-    public Servo capServo;
-
     public Webcam camera;
 
     public Servo brake;
 
     public Servo capLeftArmServo;
     public Servo capRightArmServo;
-    public Servo capArmServos;
 
     public Servo capClawServo;
     public Servo capTurretServo;
@@ -132,16 +132,16 @@ public class Hardware implements Loggable {
             intakeSensor = new ColorDistanceSensor(INTAKE_COLOR).onUnit(DistanceUnit.INCH);
         }
         if (CAP_ENABLED) {
-            capLeftArmServo = new Servo("caparml")
+            capLeftArmServo = new Servo(CAP_ARML)
                 .onRange(0.25, 0.65)
                 .invert()
                 .startAt(CapSubsystem.CapConstants.ARM_INIT);
-            capRightArmServo = new Servo("caparmr")
+            capRightArmServo = new Servo(CAP_ARMR)
                 .onRange(0.35, 0.75)
                 .startAt(CapSubsystem.CapConstants.ARM_INIT);
 
-            capClawServo = new Servo("capclaw").startAt(CapSubsystem.CapConstants.CLAW_CLOSE);
-            capTurretServo = new Servo("capturr").startAt(CapSubsystem.CapConstants.TURRET_INIT);
+            capClawServo = new Servo(CAP_CLAW).startAt(CapSubsystem.CapConstants.CLAW_CLOSE);
+            capTurretServo = new Servo(CAP_TURRET).startAt(CapSubsystem.CapConstants.TURRET_INIT);
         }
     }
 }

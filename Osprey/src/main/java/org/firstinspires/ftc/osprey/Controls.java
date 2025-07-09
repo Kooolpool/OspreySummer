@@ -63,8 +63,6 @@ public class Controls {
 
     public CommandButton carouselButton, carouselBackButton;
 
-    public CommandButton capUpButton, capDownButton;
-
     public Stick driveLeftStick, driveRightStick;
     public CommandButton resetGyroButton, brakeButton;
 
@@ -96,8 +94,6 @@ public class Controls {
 
         driveLeftStick = driverGamepad.leftStick;
         driveRightStick = driverGamepad.rightStick;
-
-        capUpButton = driverGamepad.ps_options;
 
         strategy1Button = driverGamepad.ps_options;
         strategy2Button = driverGamepad.ps_share;
