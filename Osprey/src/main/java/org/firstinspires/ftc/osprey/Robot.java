@@ -29,8 +29,7 @@ public class Robot implements Loggable {
         public static boolean CAROUSEL_ENABLED = true;
         public static boolean INTAKE_ENABLED = true;
         public static boolean VISION_ENABLED = true;
-        public static boolean CAP_ENABLED = true;
-        public static boolean SPEAKER_ENABLED = false;
+        public static boolean CAP_ENABLED = false;
         public static boolean BRAKE_ENABLED = true;
     }
 

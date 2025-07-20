@@ -86,7 +86,6 @@ public class Hardware implements Loggable {
 
     public Servo capLeftArmServo;
     public Servo capRightArmServo;
-
     public Servo capClawServo;
     public Servo capTurretServo;
 
@@ -99,7 +98,7 @@ public class Hardware implements Loggable {
         }
         if (ARM_ENABLED) {
             dumpServo = new Servo(DUMP).invert().startAt(ArmSubsystem.ArmConstants.CARRY);
-            armServo = new Servo(ARM).startAt(ArmSubsystem.ArmConstants.UP);
+            armServo = new Servo(ARM).startAt(ArmSubsystem.ArmConstants.UP).invert();
         }
         if (EXTENSION_ENABLED) {
             slideServo = new Servo(SLIDE).startAt(ExtensionSubsystem.ExtensionConstants.IN);

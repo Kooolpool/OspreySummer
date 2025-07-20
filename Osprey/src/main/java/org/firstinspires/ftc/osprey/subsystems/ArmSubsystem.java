@@ -16,6 +16,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.util.Range;
 import com.technototes.library.hardware.servo.Servo;
 import com.technototes.library.hardware.servo.ServoProfiler;
+import com.technototes.library.logger.Log;
 import com.technototes.library.subsystem.Subsystem;
 import java.util.function.Supplier;
 
@@ -44,7 +45,9 @@ public class ArmSubsystem implements Subsystem, Supplier<String> {
     }
 
     public Servo dumpServo;
+
     public Servo armServo;
+    public boolean isIdle;
     public ServoProfiler armController;
 
     public ArmSubsystem(Servo l, Servo r) {
@@ -120,7 +123,7 @@ public class ArmSubsystem implements Subsystem, Supplier<String> {
      * Sets the arm servo to a custom constant value to extend the arm of the robot
      */
     public void setArm(double v) {
-        armController.setTargetPosition(Range.clip(v, IN, DOWN));
+        armController.setTargetPosition(v);
     }
 
     /**
@@ -151,5 +154,6 @@ public class ArmSubsystem implements Subsystem, Supplier<String> {
     public void periodic() {
         armController.update();
         dumpServo.setPosition(targetDumpPosition + armServo.getPosition() / DIFFERENTIAL);
+        //        isIdle = armServo.
     }
 }

@@ -61,7 +61,7 @@ public class Controls {
 
     public CommandButton intakeInButton, intakeOutButton;
 
-    public CommandButton carouselButton, carouselBackButton;
+    public CommandButton carouselButton, carouselBackButton, armMove;
 
     public Stick driveLeftStick, driveRightStick;
     public CommandButton resetGyroButton, brakeButton;
@@ -90,13 +90,14 @@ public class Controls {
         carouselBackButton = driverGamepad.ps_triangle;
 
         resetGyroButton = driverGamepad.rightStickButton;
-        brakeButton = driverGamepad.leftStickButton;
+        //        brakeButton = driverGamepad.leftStickButton;
 
         driveLeftStick = driverGamepad.leftStick;
         driveRightStick = driverGamepad.rightStick;
 
         strategy1Button = driverGamepad.ps_options;
         strategy2Button = driverGamepad.ps_share;
+        armMove = driverGamepad.leftStickButton;
 
         RobotState.setStrategy(
             RobotState.AllianceHubStrategy.HIGH,
@@ -136,6 +137,7 @@ public class Controls {
                 EXTENSION_ENABLED ? robot.extensionSubsystem::isSlideOut : () -> true
             )
         );
+        armMove.whenPressed(robot.armSubsystem::out);
         toIntakeButton.whenPressed(new ArmInCommand(robot.armSubsystem));
         allianceHubButton.whileReleasedOnce(new ArmAllianceCommand(robot.armSubsystem));
         sharedHubButton.whileReleasedOnce(new ArmSharedCommand(robot.armSubsystem));
