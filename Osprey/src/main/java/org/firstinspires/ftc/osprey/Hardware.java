@@ -98,7 +98,11 @@ public class Hardware implements Loggable {
         }
         if (ARM_ENABLED) {
             dumpServo = new Servo(DUMP).invert().startAt(ArmSubsystem.ArmConstants.CARRY);
-            armServo = new Servo(ARM).startAt(ArmSubsystem.ArmConstants.UP).invert();
+            if (ARM_SERVO_INVERTED) {
+                armServo = new Servo(ARM).startAt(ArmSubsystem.ArmConstants.UP).invert();
+            } else {
+                armServo = new Servo(ARM).startAt(ArmSubsystem.ArmConstants.UP);
+            }
         }
         if (EXTENSION_ENABLED) {
             slideServo = new Servo(SLIDE).startAt(ExtensionSubsystem.ExtensionConstants.IN);

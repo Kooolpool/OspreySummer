@@ -31,6 +31,7 @@ public class Robot implements Loggable {
         public static boolean VISION_ENABLED = true;
         public static boolean CAP_ENABLED = false;
         public static boolean BRAKE_ENABLED = true;
+        public static boolean ARM_SERVO_INVERTED = true;
     }
 
     @Log.Number(name = "Lift")
