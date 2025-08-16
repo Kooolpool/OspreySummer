@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.osprey.subsystems;
 
+import static org.firstinspires.ftc.osprey.Robot.SubsystemConstants.ARM_CONSTRAINT;
 import static org.firstinspires.ftc.osprey.subsystems.ArmSubsystem.ArmConstants.ARM_CONSTRAINTS;
 import static org.firstinspires.ftc.osprey.subsystems.ArmSubsystem.ArmConstants.CARRY;
 import static org.firstinspires.ftc.osprey.subsystems.ArmSubsystem.ArmConstants.COLLECT;
@@ -53,9 +54,13 @@ public class ArmSubsystem implements Subsystem, Supplier<String> {
     public ArmSubsystem(Servo l, Servo r) {
         dumpServo = l;
         armServo = r;
-        armController = new ServoProfiler(armServo)
-            .setConstraints(ARM_CONSTRAINTS)
-            .setTargetPosition(UP);
+        if (!ARM_CONSTRAINT) {
+            armController = new ServoProfiler(armServo)
+                .setConstraints(ARM_CONSTRAINTS)
+                .setTargetPosition(UP);
+        } else {
+            armController = new ServoProfiler(armServo).setTargetPosition(UP);
+        }
     }
 
     /**
